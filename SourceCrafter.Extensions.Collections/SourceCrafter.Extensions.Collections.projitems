@@ -9,6 +9,6 @@
     <Import_RootNamespace>SourceCrafter.Extensions.Collections</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CollectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)*.cs" />
   </ItemGroup>
 </Project>
