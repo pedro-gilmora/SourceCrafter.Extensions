@@ -5,6 +5,9 @@ namespace SourceCrafter;
 
 public static class CollectionExtensions
 {
+    public static void Deconstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> source, out TKey key, out TValue val) 
+        => (key, val) = (source.Key, source.Value);
+
     public static TList AddNested<TList, TKey, TValueItem>(this Dictionary<TKey, TList> listHash, TKey key, TValueItem valueItem)
         where TList : ICollection<TValueItem>, new()
     {

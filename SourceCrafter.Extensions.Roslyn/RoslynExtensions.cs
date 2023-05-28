@@ -45,4 +45,8 @@ public static class RoslynExtensions
         static bool IsTSymbol(ISymbol symbol) => symbol is TSymbol;
     }
 
+    public static bool IsAttributeName(this string clsName, AttributeData attr) => HasAttribute(attr, clsName);
+
+    public static bool HasAttribute(this AttributeData attr, string clsName) => attr.AttributeClass?.Name == clsName;
+
 }
