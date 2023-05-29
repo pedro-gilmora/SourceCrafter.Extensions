@@ -9,6 +9,7 @@ public static class CollectionExtensions
         => (key, val) = (source.Key, source.Value);
 
     public static TList AddNested<TList, TKey, TValueItem>(this Dictionary<TKey, TList> listHash, TKey key, TValueItem valueItem)
+        where TKey : notnull
         where TList : ICollection<TValueItem>, new()
     {
         if (listHash.TryGetValue(key, out var valueItems))

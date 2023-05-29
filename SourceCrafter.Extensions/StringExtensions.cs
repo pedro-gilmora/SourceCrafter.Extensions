@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SourceCrafter;
 
 public static class StringExtensions
 {
-    public static string? Capitalize(this string? name) => 
-        name is { Length: > 1 } 
-            ? char.ToUpper(name[0]) + name[1..].ToLowerInvariant() 
+    public static string? Capitalize(this string? name) =>
+        name is { Length: > 1 }
+            ? char.ToUpper(name[0]) + name[1..].ToLowerInvariant()
             : name?.ToUpperInvariant();
 
     public static string Join<T>(this IEnumerable<T> strs, Func<T, string> formmater, string? separator = "")
@@ -21,7 +22,7 @@ public static class StringExtensions
     {
         return strs.Join(t => t?.ToString() ?? "", separator);
     }
-    
+
     public static string ToCamel(this string name)
     {
         var buffer = new char[name.Length];
@@ -53,7 +54,7 @@ public static class StringExtensions
         }
         return new string(buffer, 0, bufferIndex);
     }
-    
+
     public static string ToPascal(this string name)
     {
         var buffer = new char[name.Length];
@@ -63,7 +64,7 @@ public static class StringExtensions
         foreach (char ch in name)
         {
             bool isDigit = char.IsDigit(ch), isLetter = char.IsLetter(ch), isUpper = char.IsUpper(ch);
-            
+
             if (isLetter)
             {
                 buffer[bufferIndex] = ((bufferIndex++ == 0 || needUpper) && !isUpper)
@@ -93,14 +94,20 @@ public static class StringExtensions
 
     static string ToJoined(this string name, string separator = "-", bool upper = false)
     {
-        var buffer = new char[name.Length * separator.Length];
+        var buffer = new char[name.Length * (separator.Length + 1)];
         var bufferIndex = 0;
 
-        foreach (char ch in name)
+        for (int i = 0; i < name.Length; i++)
         {
-            bool isDigit = char.IsDigit(ch), isLetter = char.IsLetter(ch), isUpper = char.IsUpper(ch);
+            char ch = name[i];
+            bool isLetterOrDigit = char.IsLetterOrDigit(ch), isUpper = char.IsUpper(ch);
 
-            if (isLetter)
+            if (i > 0 && isUpper && char.IsLower(name[i - 1]))
+            {
+                separator.CopyTo(0, buffer, bufferIndex, separator.Length);
+                bufferIndex += separator.Length;
+            }
+            if (isLetterOrDigit)
             {
                 buffer[bufferIndex++] = (upper, isUpper) switch
                 {
@@ -108,17 +115,6 @@ public static class StringExtensions
                     (false, true) => char.ToLowerInvariant(ch),
                     _ => ch
                 };
-                continue;
-            }
-            else if (bufferIndex == 0)
-                continue;
-
-            separator.CopyTo(0, buffer, bufferIndex, separator.Length);
-            bufferIndex += separator.Length;
-
-            if (isDigit)
-            {
-                buffer[bufferIndex++] = ch;
             }
         }
         return new string(buffer, 0, bufferIndex);

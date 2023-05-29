@@ -18,7 +18,7 @@ public static class RoslynExtensions
         } || typeSymbol.IsNullable();
 
 
-    public static bool TryGetNameOfFromAttributeArg<TSymbol>(AttributeData attr, SemanticModel model, int index, out TSymbol symbol, Func<ISymbol, bool>? predicate = null)
+    public static bool TryGetNameOfArgumentFromAttributeArgument<TSymbol>(AttributeData attr, SemanticModel model, int index, out TSymbol symbol, Func<ISymbol, bool>? predicate = null)
         where TSymbol : class, ISymbol
     {
         return null != (symbol = attr.ApplicationSyntaxReference?.GetSyntax() is AttributeSyntax
@@ -43,6 +43,25 @@ public static class RoslynExtensions
                 : default!);
 
         static bool IsTSymbol(ISymbol symbol) => symbol is TSymbol;
+    }
+
+    public static bool TryGetTypeOfArgumentFromAttributeArgument(AttributeData attr, SemanticModel model, int index, out ITypeSymbol symbol)
+    {
+        return null != (symbol = attr.ApplicationSyntaxReference?.GetSyntax() is AttributeSyntax
+        {
+            ArgumentList.Arguments: { Count: { } count } args
+        } && count > index && // It's inside the range
+        args[index].Expression is TypeOfExpressionSyntax
+        {
+            Type: { } expr 
+        }
+            ? model.GetTypeInfo(expr) switch // Contains symbol
+            {
+                { Type: ITypeSymbol foundSymbol } => foundSymbol, // Directly found
+                { ConvertedType: ITypeSymbol foundSymbol } => foundSymbol, // The first one meeting the requirements
+                _ => default!
+            }
+            : default!);
     }
 
     public static bool IsAttributeName(this string clsName, AttributeData attr) => HasAttribute(attr, clsName);

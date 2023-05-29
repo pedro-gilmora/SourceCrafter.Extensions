@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33209.295
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceCrafter.Extensions", "SourceCrafter.Extensions\SourceCrafter.Extensions.csproj", "{11A5E873-5559-45F3-B147-AAF933E2A6EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceCrafter.Extensions.UnitTests", "SourceCrafter.Extensions.UnitTests\SourceCrafter.Extensions.UnitTests.csproj", "{AEE2523B-D19B-4A75-9B25-0A76D8320623}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11A5E873-5559-45F3-B147-AAF933E2A6EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A5E873-5559-45F3-B147-AAF933E2A6EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A5E873-5559-45F3-B147-AAF933E2A6EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A5E873-5559-45F3-B147-AAF933E2A6EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE2523B-D19B-4A75-9B25-0A76D8320623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE2523B-D19B-4A75-9B25-0A76D8320623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE2523B-D19B-4A75-9B25-0A76D8320623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE2523B-D19B-4A75-9B25-0A76D8320623}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E49D348-9986-44D9-8667-0838FD61D535}
+	EndGlobalSection
+EndGlobal
